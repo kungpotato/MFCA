@@ -59,16 +59,16 @@ class Login extends Component {
               <div className="card-body" style={{ paddingLeft: '150px', paddingRight: '150px' }}>
                 <form onSubmit={this.handleSubmit}>
                   <div className="form-group row">
-                    <div className="col-md-3">
-                      <span className="control-label">Username :</span>
+                    <div className="col-md-4">
+                      <span>Username :</span>
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-8">
                       <input type="text" className="form-control" name="username" placeholder="" />
                     </div>
-                    <div className="col-md-3 pt20">
-                      <span className="control-label">Password :</span>
+                    <div className="col-md-4 pt20">
+                      <span>Password :</span>
                     </div>
-                    <div className="col-md-9 pt20">
+                    <div className="col-md-8 pt20">
                       <input type="text" className="form-control" name="password" placeholder="" />
                     </div>
                     <div className="col-md-12 pt20">
