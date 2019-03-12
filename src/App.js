@@ -61,13 +61,13 @@ class App extends Component {
       privateNav = (
         <React.Fragment>
           <li className="nav-item">
-            <Link className="nav-link scroll-link fw" to="/input-config">Input Config</Link>
+            <Link className="nav-link scroll-link fw" to="/input-config">Data Config</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link scroll-link fw" to="/input-material">Input Material</Link>
+            <Link className="nav-link scroll-link fw" to="/input-material">Process</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link scroll-link fw" to="/input-history">Input History</Link>
+            <Link className="nav-link scroll-link fw" to="/input-history">History</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link scroll-link fw" to="/material-flow">Material Flow</Link>
@@ -90,8 +90,11 @@ class App extends Component {
         <Router>
           <div>
             <nav className="navbar navbar-dark fixed-top navbar-expand-md ">
-              <div className="container">
+              <div className="container ">
                 <h4 className="clw">MFCA</h4>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon" />
+                </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                   <ul className="navbar-nav ml-auto">
                     <li className="nav-item">

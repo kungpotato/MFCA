@@ -112,44 +112,32 @@ class Metadata extends Component {
                 <ul ref={this.ListTag}>
                   {!Helper.isNull(data) && data.map(val => !Helper.isNull(val.department) && (
                   <li style={{ paddingBottom: '15px' }}>
-                    <div className="row">
-                      <div className="col-lg-2">
-                        <InputCheckbox
-                          {...val}
-                          item={val._id}
-                          handleCheckboxClick={this.handleCheckboxClick}
-                        />
-                      </div>
-                      <div className="col-lg-10">{val.department}</div>
-                    </div>
+                    <InputCheckbox
+                      {...val}
+                      item={val._id}
+                      handleCheckboxClick={this.handleCheckboxClick}
+                    />
+                    {val.department}
                   </li>
                   ))}
                   {!Helper.isNull(data) && data.map(val => !Helper.isNull(val.material) && (
                   <li style={{ paddingBottom: '15px' }}>
-                    <div className="row">
-                      <div className="col-lg-2">
-                        <InputCheckbox
-                          {...val}
-                          item={val._id}
-                          handleCheckboxClick={this.handleCheckboxClick}
-                        />
-                      </div>
-                      <div className="col-lg-10">{val.material}</div>
-                    </div>
+                    <InputCheckbox
+                      {...val}
+                      item={val._id}
+                      handleCheckboxClick={this.handleCheckboxClick}
+                    />
+                    {val.material}
                   </li>
                   ))}
                   {!Helper.isNull(data) && data.map(val => !Helper.isNull(val.unit) && (
                   <li style={{ paddingBottom: '15px' }}>
-                    <div className="row">
-                      <div className="col-lg-2">
-                        <InputCheckbox
-                          {...val}
-                          item={val._id}
-                          handleCheckboxClick={this.handleCheckboxClick}
-                        />
-                      </div>
-                      <div className="col-lg-10">{val.unit}</div>
-                    </div>
+                    <InputCheckbox
+                      {...val}
+                      item={val._id}
+                      handleCheckboxClick={this.handleCheckboxClick}
+                    />
+                    {val.unit}
                   </li>
                   ))}
                 </ul>

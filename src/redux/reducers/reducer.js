@@ -3,7 +3,8 @@ const initState = {
   DeptData: [],
   MatData: [],
   UNitData: [],
-  isLogin: false
+  isLogin: false,
+  trData: []
 }
 
 
@@ -26,6 +27,9 @@ const reducer = (state = initState, action) => {
       break
     case 'LOGIN_STATUS':
       newState.isLogin = action.isLogin
+      break
+    case 'UPDATE_TABLE':
+      newState.DisplayTr = action.trData
       break
     default:
       break

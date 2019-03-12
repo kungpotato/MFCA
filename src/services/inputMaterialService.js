@@ -1,6 +1,16 @@
 import apiURL from './api'
 
 export default {
+  getInpuMat: async (id) => { //eslint-disable-line
+    try {
+      const response = (id !== undefined) ? await fetch(`${apiURL.URLInput}?_id=${id}`) : await fetch(`${apiURL.URLInput}`)
+      const json = await response.json()
+      // console.log('Success: ',json);
+      return json
+    } catch (error) {
+      console.log('Error: ', error)
+    }
+  },
   saveToCollection: async (inputjson) => { //eslint-disable-line
     // console.log(data)
     if (inputjson.data !== '') {
