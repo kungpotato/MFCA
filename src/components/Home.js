@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
 import '../App.css'
 
+const style = {
+  alCenter: {
+    textAlign: 'center'
+  }
+}
+
 class Home extends Component {
   constructor(props) {
     super(props)
@@ -10,8 +16,8 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Test</h1>
+      <div style={style.alCenter}>
+        <img src="./gallery-868x0-370902.jpg" alt="" />
       </div>
     )
   }

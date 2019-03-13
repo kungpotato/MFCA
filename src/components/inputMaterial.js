@@ -39,7 +39,6 @@ class InputMaterial extends Component {
     this._isMounted = false
   }
 
-
   getData = async (condition) => {
     if (condition === 'department') {
       const resDept = await metaDataService.getDept()
@@ -76,7 +75,7 @@ class InputMaterial extends Component {
 
   SaveDataInput = async (json) => {
     const res = await inputMaterialService.saveToCollection(json)
-    console.log(res)
+    return res
   }
 
   getDataToSave = (data) => {
@@ -89,8 +88,8 @@ class InputMaterial extends Component {
     // console.log(this.state.count)
   }
 
-  handleSubmit() {
-    // e.preventDefault();
+  handleSubmit(e) {
+    e.preventDefault()
     // const target = e.target;
     const running = this.displayRunning.current
     const { selectDeptId } = this.state
@@ -106,7 +105,12 @@ class InputMaterial extends Component {
         dataOutput: trOutput
       }
     }
-    this.SaveDataInput(item)
+    const reponse = this.SaveDataInput(item)
+    reponse.then((res) => {
+      this.setState((state, props) => {
+        !Helper.isNull(res) && props.history.push('/input-history')
+      })
+    })
   }
 
   handleDeptChange(selected) {
@@ -171,6 +175,7 @@ class InputMaterial extends Component {
                     dataToSave={this.getDataToSave}
                     type="input"
                   />
+                  <hr className="pt20" />
                   <InputDetail
                     name="OutPut Details"
                     matOptions={matOptions}

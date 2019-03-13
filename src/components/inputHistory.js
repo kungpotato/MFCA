@@ -24,6 +24,7 @@ class InputHistory extends Component {
 
   render() {
     const { data } = this.state
+
     return (
       <div className="container">
         <div className="row pt80">
@@ -38,7 +39,10 @@ class InputHistory extends Component {
                   columns={[
                     {
                       Header: 'Production ID',
-                      accessor: 'periodCode'
+                      accessor: 'periodCode',
+                      Cell: row => (
+                        <a href=" ">{row.value}</a>
+                      )
                     },
                     {
                       Header: 'Department',

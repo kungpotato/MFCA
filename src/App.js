@@ -15,7 +15,7 @@ import Analysys from './components/analysys'
 import LoginCom from './components/login'
 // import LoginService from './services/loginService'
 import Helper from './helpers/FunctionHelp'
-
+import PrivateRoute from './components/PrivateRoute'
 
 class App extends Component {
   constructor(props) {
@@ -134,39 +134,11 @@ class App extends Component {
                 </React.Fragment>
               )}
             />
-            <Route
-              exact
-              path="/input-material"
-              render={props => (
-                <React.Fragment>
-                  {isLogin && <InputMaterail {...props} isLogin={isLogin} />}
-                </React.Fragment>
-              )}
-            />
-            <Route
-              path="/input-config"
-              render={props => (
-                isLogin && <InputConfig {...props} isLogin={isLogin} />
-              )}
-            />
-            <Route
-              path="/input-history"
-              render={props => (
-                isLogin && <InputHistory {...props} isLogin={isLogin} />
-              )}
-            />
-            <Route
-              path="/material-flow"
-              render={props => (
-                isLogin && <MaterialFlow {...props} isLogin={isLogin} />
-              )}
-            />
-            <Route
-              path="/analysys"
-              render={props => (
-                isLogin && <Analysys {...props} isLogin={isLogin} />
-              )}
-            />
+            <PrivateRoute path="/input-material" component={InputMaterail} isLogin={isLogin} />
+            <PrivateRoute path="/input-config" component={InputConfig} isLogin={isLogin} />
+            <PrivateRoute path="/input-history" component={InputHistory} isLogin={isLogin} />
+            <PrivateRoute path="/material-flow" component={MaterialFlow} isLogin={isLogin} />
+            <PrivateRoute path="/analysys" component={Analysys} isLogin={isLogin} />
             <Route path="/register" component={Register} />
           </div>
         </Router>
