@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './App.css'
 import './style/inputMat.css'
+// import {
+//   BrowserRouter as Router, Route, Link, Redirect
+// } from 'react-router-dom'
 import {
-  BrowserRouter as Router, Route, Link, Redirect
+  HashRouter as Router, Route, Link, Redirect
 } from 'react-router-dom'
 import Home from './components/Home'
 import InputMaterail from './components/inputMaterial'
@@ -133,11 +136,11 @@ class App extends Component {
                 </React.Fragment>
               )}
             />
-            <PrivateRoute path="/input-material" component={InputMaterail} isLogin={isLogin} />
-            <PrivateRoute path="/input-config" component={InputConfig} isLogin={isLogin} />
-            <PrivateRoute path="/input-history" component={InputHistory} isLogin={isLogin} />
-            <PrivateRoute path="/material-flow" component={MaterialFlow} isLogin={isLogin} />
-            <PrivateRoute path="/analysys" component={Analysys} isLogin={isLogin} />
+            <PrivateRoute path="/input-material" component={InputMaterail} />
+            <PrivateRoute path="/input-config" component={InputConfig} />
+            <PrivateRoute path="/input-history" component={InputHistory} />
+            <PrivateRoute path="/material-flow" component={MaterialFlow} />
+            <PrivateRoute path="/analysys" component={Analysys} />
             <Route path="/register" component={Register} />
           </div>
         </Router>
