@@ -17,7 +17,7 @@ class Home extends Component {
   render() {
     return (
       <div style={style.alCenter}>
-        <img src="./gallery-868x0-370902.jpg" alt="" />
+        <img className="img-fluid" src="./gallery-868x0-370902.jpg" alt="" />
       </div>
     )
   }

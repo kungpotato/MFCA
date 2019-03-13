@@ -51,27 +51,27 @@ class Login extends Component {
     return (
       <div className="pt80 container">
         <div className="row justify-content-md-center">
-          <div className="col-md-8">
+          <div className="col-lg-6">
             <div className="card">
               <div className="card-header">
                 <h4>Sign in</h4>
               </div>
-              <div className="card-body" style={{ paddingLeft: '150px', paddingRight: '150px' }}>
+              <div className="card-body">
                 <form onSubmit={this.handleSubmit}>
                   <div className="form-group row">
-                    <div className="col-md-4">
+                    <div className="col-lg-4 col-12">
                       <span>Username :</span>
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-lg-8 col-12">
                       <input type="text" className="form-control" name="username" placeholder="" />
                     </div>
-                    <div className="col-md-4 pt20">
+                    <div className="col-lg-4 col-12 pt20 ">
                       <span>Password :</span>
                     </div>
-                    <div className="col-md-8 pt20">
+                    <div className="col-lg-8 col-12 pt20">
                       <input type="text" className="form-control" name="password" placeholder="" />
                     </div>
-                    <div className="col-md-12 pt20">
+                    <div className="col-lg-12 col-12 pt20">
                       <button type="submit" className="btn btn-primary p-right">Submit</button>
                     </div>
                   </div>

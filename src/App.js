@@ -29,6 +29,7 @@ class App extends Component {
     const login = window.localStorage.getItem('isLogin')
 
     // console.log(item)
+    // ส่งไปเผื่ออนาคตได้ใช้
     if (!Helper.isNull(login)) {
       this.setState((state, props) => {
         props.setLogin(login)
@@ -54,9 +55,7 @@ class App extends Component {
     let LogoutLink = ''
     let loginLink = ''
     let registerLink = ''
-    // console.log(isLoggedIn)
-    // console.log(this.state.isLogin)
-    // const goLogin =''
+
     if (isLogin) {
       privateNav = (
         <React.Fragment>

@@ -3,6 +3,12 @@ import ReactTable from 'react-table'
 import InputMatService from '../services/inputMaterialService'
 import 'react-table/react-table.css'
 
+const style = {
+  alCenter: {
+    textAlign: 'center'
+  }
+}
+
 class InputHistory extends Component {
   constructor(props) {
     super(props)
@@ -41,7 +47,15 @@ class InputHistory extends Component {
                       Header: 'Production ID',
                       accessor: 'periodCode',
                       Cell: row => (
-                        <a href=" ">{row.value}</a>
+                        <a
+                          href=" "
+                          onClick={(e) => {
+                            e.preventDefault()
+                          }
+                        }
+                        >
+                          {row.value}
+                        </a>
                       )
                     },
                     {
@@ -51,6 +65,26 @@ class InputHistory extends Component {
                     {
                       Header: 'Production Date',
                       accessor: 'createdAt'
+                    },
+                    {
+                      Header: 'Edit',
+                      accessor: '_id',
+                      Cell: id => (
+                        <div style={style.alCenter}>
+                          <a
+                            href=" "
+                            onClick={(e) => {
+                              e.preventDefault()
+                              alert(id.value)
+                            }
+                            }
+                          >
+                            <button type="button" className="btn btn-info">
+                              <i className="fas fa-pencil-alt" />
+                            </button>
+                          </a>
+                        </div>
+                      )
                     }
                   ]}
                   defaultPageSize={10}
