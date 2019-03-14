@@ -32,12 +32,15 @@ class App extends Component {
     const login = window.localStorage.getItem('isLogin')
 
     // console.log(item)
-    // ส่งไปเผื่ออนาคตได้ใช้
     if (!Helper.isNull(login)) {
       this.setState((state, props) => {
         props.setLogin(login)
       })
     }
+
+    // this.setState((state, props) => {
+    //   console.log(props.history)
+    // })
   }
 
   // SendData = async (data) => {
@@ -136,11 +139,11 @@ class App extends Component {
                 </React.Fragment>
               )}
             />
-            <PrivateRoute path="/input-material" component={InputMaterail} />
-            <PrivateRoute path="/input-config" component={InputConfig} />
-            <PrivateRoute path="/input-history" component={InputHistory} />
-            <PrivateRoute path="/material-flow" component={MaterialFlow} />
-            <PrivateRoute path="/analysys" component={Analysys} />
+            <PrivateRoute path="/input-material" component={InputMaterail} isLogin={isLogin} />
+            <PrivateRoute path="/input-config" component={InputConfig} isLogin={isLogin} />
+            <PrivateRoute path="/input-history" component={InputHistory} isLogin={isLogin} />
+            <PrivateRoute path="/material-flow" component={MaterialFlow} isLogin={isLogin} />
+            <PrivateRoute path="/analysys" component={Analysys} isLogin={isLogin} />
             <Route path="/register" component={Register} />
           </div>
         </Router>

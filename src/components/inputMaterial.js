@@ -105,6 +105,7 @@ class InputMaterial extends Component {
         dataOutput: trOutput
       }
     }
+
     const reponse = this.SaveDataInput(item)
     reponse.then((res) => {
       this.setState((state, props) => {
