@@ -24,7 +24,7 @@ class PrivateRoute extends Component {
         {...rest}
         render={props => (
           <React.Fragment>
-            {isLoggedIn && <Components {...props} />}
+            {(isLoggedIn || rest.isLogin) && <Components {...props} />}
             {!rest.isLogin && <Error />}
           </React.Fragment>
         )}
