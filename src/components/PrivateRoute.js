@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom' // eslint-disable-line
 import Error from './Error'
-// import Helper from '../helpers/FunctionHelp'
+import Authen from './Authen'
+import Helper from '../helpers/FunctionHelp'
 
 class PrivateRoute extends Component {
   constructor(props) {
@@ -12,8 +13,8 @@ class PrivateRoute extends Component {
   }
 
   componentDidMount() {
-    const login = window.localStorage.getItem('isLogin')
-    login && this.setState({ isLoggedIn: true })
+    const login = window.localStorage.getItem('mfca_user')
+    !Helper.isNull(login) && this.setState({ isLoggedIn: true })
   }
 
   render() {
@@ -24,8 +25,8 @@ class PrivateRoute extends Component {
         {...rest}
         render={props => (
           <React.Fragment>
-            {(isLoggedIn || rest.isLogin) && <Components {...props} />}
-            {!rest.isLogin && <Error />}
+            {(Authen.isAuthenticated || isLoggedIn) && <Components {...props} />}
+            {!Authen.isAuthenticated && <Error />}
           </React.Fragment>
         )}
       />

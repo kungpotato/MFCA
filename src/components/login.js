@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import '../App.css'
 import LoginService from '../services/loginService'
 import Helper from '../helpers/FunctionHelp'
+import Authen from './Authen'
 
 class Login extends Component {
   constructor(props) {
@@ -17,19 +18,8 @@ class Login extends Component {
 
   SendData = async (data) => {
     const res = await LoginService.saveToCollection(data)
-    if (!Helper.isNull(res)) {
-      // console.log(res)
-      localStorage.setItem('isLogin', true)
-
-      // var isLogedIn = localStorage.getItem('isLogedIn')
-
-      this.setState((state, props) => {
-        props.setLogin(true)
-        return {
-          isLogin: true
-        }
-      })
-    }
+    return res
+    // var isLogedIn = localStorage.getItem('isLogedIn')
   }
 
   handleSubmit(e) {
@@ -43,11 +33,27 @@ class Login extends Component {
       password: pass
     }
 
-    this.SendData(User)
+    const response = this.SendData(User)
+
+    response.then((res) => {
+      if (!Helper.isNull(res)) {
+        // console.log(res)
+        localStorage.setItem('mfca_user', res.username)
+        Authen.authenticate(res, (val) => {
+          this.setState((state, props) => {
+            props.setLogin(val)
+            props.history.push('/')
+            return {
+              isLogin: val
+            }
+          })
+        })
+      }
+    })
   }
 
   render() {
-    // console.log(this.props.isLogin)
+    // console.log(this.props.location)
     return (
       <div className="pt80 container">
         <div className="row justify-content-md-center">

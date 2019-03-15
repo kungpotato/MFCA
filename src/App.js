@@ -19,6 +19,7 @@ import LoginCom from './components/login'
 // import LoginService from './services/loginService'
 import Helper from './helpers/FunctionHelp'
 import PrivateRoute from './components/PrivateRoute'
+import Authen from './components/Authen'
 
 class App extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const login = window.localStorage.getItem('isLogin')
+    const login = window.localStorage.getItem('mfca_user')
 
     // console.log(item)
     if (!Helper.isNull(login)) {
@@ -96,7 +97,7 @@ class App extends Component {
           <div>
             <nav className="navbar navbar-dark fixed-top navbar-expand-md ">
               <div className="container ">
-                <h4 className="clw">MFCA</h4>
+                <h4 className="clw">JEBCORE</h4>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon" />
                 </button>
@@ -131,13 +132,20 @@ class App extends Component {
             />
             <Route
               path="/logout"
-              render={() => (
-                <React.Fragment>
-                  {localStorage.clear()}
-                  <Redirect to="/" />
-                  {window.location.reload()}
-                </React.Fragment>
-              )}
+              render={() => {
+                Authen.signout(() => {
+                  localStorage.clear()
+                  window.location.reload()
+                })
+                return (
+                  <React.Fragment>
+                    {/* {Authen.signout(() => (
+                      <Redirect to="/" />
+                    ))} */}
+                    {isLogin && <Redirect to="/" />}
+                  </React.Fragment>
+                )
+              }}
             />
             <PrivateRoute path="/input-material" component={InputMaterail} isLogin={isLogin} />
             <PrivateRoute path="/input-config" component={InputConfig} isLogin={isLogin} />
