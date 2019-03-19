@@ -153,7 +153,7 @@ class InputMaterial extends Component {
                           <Typeahead
                             labelKey="department"
                             name="department"
-                            // ignoreDiacritics={true}
+                            id="department"
                             multiple={multiple}
                             options={deptOptions}
                             selected={selectDeptArr}

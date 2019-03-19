@@ -129,7 +129,7 @@ class InputDetail extends Component {
               <Typeahead
                 labelKey="material"
                 name="material"
-                // ignoreDiacritics={true}
+                id="material"
                 multiple={multiple}
                 options={matOptions}
                 onChange={this.handleMatChange}
@@ -155,8 +155,8 @@ class InputDetail extends Component {
             {unitOptions && (
               <Typeahead
                 labelKey="unit"
-                name="material"
-                // ignoreDiacritics={true}
+                name="unit"
+                id="unit"
                 multiple={multiple}
                 options={unitOptions}
                 onChange={this.handleUnitChange}
@@ -190,7 +190,7 @@ class InputDetail extends Component {
             </thead>
             <tbody>
               {!Helper.isNull(DisplayTr) && DisplayTr.map(val => (
-                <tr>
+                <tr key={val.mat}>
                   <td>{val.mat}</td>
                   <td>{val.qty}</td>
                   <td>{val.unit}</td>

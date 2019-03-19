@@ -9,7 +9,7 @@ const Authen = {
   },
   signout(cb) {
     this.isAuthenticated = false
-    cb()
+    cb(false)
   }
 }
 

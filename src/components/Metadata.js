@@ -16,6 +16,7 @@ class Metadata extends Component {
     this.handleSelectAll = this.handleSelectAll.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleCheckboxClick = this.handleCheckboxClick.bind(this)
+    this.handleSortChange = this.handleSortChange.bind(this)
   }
 
   componentDidMount() {
@@ -27,6 +28,11 @@ class Metadata extends Component {
     // const { key } = target
   }
 
+  handleSortChange = (e) => {
+    const { target } = e
+    console.log(target)
+  }
+
   handleSelectAll(e) {
     // datas.forEach(val => val.id === e.target.value )
     const { data } = this.props
@@ -36,7 +42,7 @@ class Metadata extends Component {
   }
 
   handleCheckbox(e) {
-    // e.preventDefault()
+    e.preventDefault()
     const item = {
       method: 'remove',
       data: []
@@ -44,16 +50,20 @@ class Metadata extends Component {
     const target = e.target.elements
     // console.log(e.target.name)
     for (let i = 0; i < target.length; i += 1) {
-      target[i].checked && item.data.push({ _id: target[i].value })
+      if (target[i].value !== 'checkedall') {
+        target[i].checked && item.data.push({ _id: target[i].value })
+      }
     }
-    this.saveData(item)
+    const response = this.saveData(item)
+    response.then(() => {
+      window.location.reload()
+    })
   }
 
   handleRemove(e) {
+    // e.preventDefault()
     const { target } = e
-    this.setState({
-      fac: target.name
-    })
+    this.setState({ fac: target.name })
   }
 
   handleCheckboxClick(e) {
@@ -80,7 +90,7 @@ class Metadata extends Component {
     } else if (fac === 'unit') {
       res = await metaDataService.saveToCollection('unit', param)
     }
-    console.log(res)
+    return res
   }
 
   render() {
@@ -99,7 +109,7 @@ class Metadata extends Component {
               <div className="col-md-12" style={{ paddingBottom: '10px' }}>
                 <button type="submit" style={{ marginLeft: '10px' }} className="btn btn-danger btn-sm" name={fac} onClick={this.handleRemove}>Remove</button>
               </div>
-              <div className="col-md-12">
+              <div className="col-md-8">
                 <input
                   type="checkbox"
                   value="checkedall"
@@ -108,20 +118,30 @@ class Metadata extends Component {
                 />
                 check/uncheck all
               </div>
+              <div className="col-md-4"><div style={{ float: 'right' }}>ลำดับ</div></div>
               <div className="col-md-12">
                 <ul ref={this.ListTag}>
                   {!Helper.isNull(data) && data.map(val => !Helper.isNull(val.department) && (
-                  <li style={{ paddingBottom: '15px' }}>
+                  <li key={val._id} style={{ paddingBottom: '15px' }}>
                     <InputCheckbox
                       {...val}
                       item={val._id}
                       handleCheckboxClick={this.handleCheckboxClick}
                     />
                     {val.department}
+                    <input
+                      type="number"
+                      name="sort"
+                      value={val.sort}
+                      onChange={this.handleSortChange}
+                      min="1"
+                      max="3"
+                      style={{ float: 'right' }}
+                    />
                   </li>
                   ))}
                   {!Helper.isNull(data) && data.map(val => !Helper.isNull(val.material) && (
-                  <li style={{ paddingBottom: '15px' }}>
+                  <li key={val._id} style={{ paddingBottom: '15px' }}>
                     <InputCheckbox
                       {...val}
                       item={val._id}
@@ -131,7 +151,7 @@ class Metadata extends Component {
                   </li>
                   ))}
                   {!Helper.isNull(data) && data.map(val => !Helper.isNull(val.unit) && (
-                  <li style={{ paddingBottom: '15px' }}>
+                  <li key={val._id} style={{ paddingBottom: '15px' }}>
                     <InputCheckbox
                       {...val}
                       item={val._id}

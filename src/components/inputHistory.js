@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import InputMatService from '../services/inputMaterialService'
+import InputMaterialService from '../services/metaDataService'
 import 'react-table/react-table.css'
 
 const style = {
@@ -14,18 +15,28 @@ class InputHistory extends Component {
     super(props)
     this._isMounted = false
     this.state = {
-
+      data: []
     }
   }
 
   componentDidMount() {
     this._isMounted = true
-    if (this._isMounted) this.getInputData()
+    this._isMounted && this.getMasterDept()
+    this._isMounted && this.getInputData()
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 
   getInputData = async () => {
     const res = await InputMatService.getInpuMat()
-    this.setState({ data: res })
+    this._isMounted && this.setState({ data: res })
+  }
+
+  getMasterDept = async () => {
+    const res = await InputMaterialService.getDept()
+    return res
   }
 
   render() {
@@ -60,7 +71,7 @@ class InputHistory extends Component {
                     },
                     {
                       Header: 'Department',
-                      accessor: 'department'
+                      accessor: 'department.department'
                     },
                     {
                       Header: 'Production Date',

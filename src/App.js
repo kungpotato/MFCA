@@ -27,6 +27,8 @@ class App extends Component {
 
     this.state = {
     }
+
+    this.clearProps = this.clearProps.bind(this)
   }
 
   componentDidMount() {
@@ -55,6 +57,15 @@ class App extends Component {
   //     })
   //   }
   // }
+  clearProps = () => {
+    this.setState((state, props) => {
+      localStorage.clear()
+      props.setLogin(null)
+      return {
+        isLogin: null
+      }
+    })
+  }
 
   render() {
     const { isLogin } = this.props
@@ -84,7 +95,7 @@ class App extends Component {
         </React.Fragment>
       )
       // goLogin = (<Redirect to="/login"/>)
-      LogoutLink = (<li className="nav-item"><Link className="nav-link scroll-link fw" to="/logout" refresh="true">Logout</Link></li>)
+      LogoutLink = (<li className="nav-item"><Link className="nav-link scroll-link fw" to="/logout" refresh="true" onClick={this.clearProps}>Logout</Link></li>)
     } else {
       loginLink = (<li className="nav-item"><Link className="nav-link scroll-link fw" to="/login">Login</Link></li>)
       registerLink = (<li className="nav-item"><Link className="nav-link scroll-link fw" to="/register">Register</Link></li>)
@@ -133,18 +144,10 @@ class App extends Component {
             <Route
               path="/logout"
               render={() => {
-                Authen.signout(() => {
-                  localStorage.clear()
-                  window.location.reload()
-                })
-                return (
-                  <React.Fragment>
-                    {/* {Authen.signout(() => (
-                      <Redirect to="/" />
-                    ))} */}
-                    {isLogin && <Redirect to="/" />}
-                  </React.Fragment>
-                )
+                const isLogout = Authen.signout(param => param)
+                let redirect = ''
+                if (isLogout) { redirect = <Redirect to="/" /> } // eslint-disabled-line
+                return redirect
               }}
             />
             <PrivateRoute path="/input-material" component={InputMaterail} isLogin={isLogin} />

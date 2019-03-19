@@ -76,17 +76,17 @@ class InputConfig extends Component {
 
   saveDeptData = async (param) => {
     const res = await metaDataService.saveToCollection('dept', param)
-    console.log(res)
+    return res
   }
 
   saveMatData = async (param) => {
     const res = await metaDataService.saveToCollection('mat', param)
-    console.log(res)
+    return res
   }
 
   saveUnitData = async (param) => {
     const res = await metaDataService.saveToCollection('unit', param)
-    console.log(res)
+    return res
   }
 
   handleSubmit(e) {
@@ -101,19 +101,25 @@ class InputConfig extends Component {
         method: 'save',
         data: { department: valueInput }
       }
-      this.saveDeptData(item)
+      this.saveDeptData(item).then(() => {
+        window.location.reload()
+      })
     } else if (target.options.value === 'Material') {
       item = {
         method: 'save',
         data: { material: valueInput }
       }
-      this.saveMatData(item)
+      this.saveMatData(item).then(() => {
+        window.location.reload()
+      })
     } else if (target.options.value === 'Unit') {
       item = {
         method: 'save',
         data: { unit: valueInput }
       }
-      this.saveUnitData(item)
+      this.saveUnitData(item).then(() => {
+        window.location.reload()
+      })
     }
 
     target.options.value = ''
