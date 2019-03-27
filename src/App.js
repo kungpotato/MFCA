@@ -40,10 +40,15 @@ class App extends Component {
         props.setLogin(login)
       })
     }
+  }
 
-    // this.setState((state, props) => {
-    //   console.log(props.history)
-    // })
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.isLogin !== prevState.isLogin) {
+      return { someState: nextProps.isLogin }
+    }
+
+    return null
+    // console.log("getDerivedStateFromProps", nextProps, prevState)
   }
 
   // SendData = async (data) => {
@@ -59,7 +64,6 @@ class App extends Component {
   // }
   clearProps = () => {
     this.setState((state, props) => {
-      localStorage.clear()
       props.setLogin(null)
       return {
         isLogin: null
@@ -144,9 +148,9 @@ class App extends Component {
             <Route
               path="/logout"
               render={() => {
-                const isLogout = Authen.signout(param => param)
+                Authen.signout(param => !param && localStorage.clear())
                 let redirect = ''
-                if (isLogout) { redirect = <Redirect to="/" /> } // eslint-disabled-line
+                if (!isLogin) { redirect = <Redirect to="/" /> } // eslint-disabled-line
                 return redirect
               }}
             />

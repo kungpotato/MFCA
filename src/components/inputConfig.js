@@ -12,6 +12,8 @@ class InputConfig extends Component {
 
     }
 
+    this.temDept = []
+
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -21,6 +23,11 @@ class InputConfig extends Component {
     if (this._isMounted) this.getData('department')
     if (this._isMounted) this.getData('material')
     if (this._isMounted) this.getData('unit')
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps, nextState)
+    return true
   }
 
   componentWillUnmount() {
@@ -89,20 +96,43 @@ class InputConfig extends Component {
     return res
   }
 
+  handleSortChange = (sort, id) => {
+    const { DeptData } = this.state
+    let temp
+    this.temDept = DeptData
+
+    for (let i = 0; i < DeptData.length; i += 1) {
+      if (DeptData[i]._id === id) {
+        temp = DeptData[i].sort
+        this.temDept[i].sort = Number(sort)
+      }
+    }
+    for (let j = 0; j < DeptData.length; j += 1) {
+      if (DeptData[j].sort === Number(sort) && DeptData[j]._id !== id) {
+        this.temDept[j].sort = Number(temp)
+      }
+    }
+
+    this.setState({ DeptData: this.temDept })
+  }
+
   handleSubmit(e) {
     // e.preventDefault();
 
     const { target } = e
     let item = {}
-    const { valueInput } = this.state
+    const { valueInput, DeptData } = this.state
 
     if (target.options.value === 'Department') {
       item = {
         method: 'save',
-        data: { department: valueInput }
+        data: {
+          department: valueInput,
+          sort: DeptData.length + 1
+        }
       }
       this.saveDeptData(item).then(() => {
-        window.location.reload()
+        // window.location.reload()
       })
     } else if (target.options.value === 'Material') {
       item = {
@@ -110,7 +140,7 @@ class InputConfig extends Component {
         data: { material: valueInput }
       }
       this.saveMatData(item).then(() => {
-        window.location.reload()
+        // window.location.reload()
       })
     } else if (target.options.value === 'Unit') {
       item = {
@@ -118,7 +148,7 @@ class InputConfig extends Component {
         data: { unit: valueInput }
       }
       this.saveUnitData(item).then(() => {
-        window.location.reload()
+        // window.location.reload()
       })
     }
 
@@ -127,6 +157,7 @@ class InputConfig extends Component {
   }
 
   render() {
+    console.log('render')
     const scopeStyle = {
       pd20: {
         paddingBottom: '20px'
@@ -194,7 +225,7 @@ class InputConfig extends Component {
 
         <div className="row">
           <div className="col-md-4" style={scopeStyle.pd20}>
-            <Metadata title="Departments" fac="dept" data={DeptData} />
+            <Metadata title="Departments" fac="dept" data={DeptData} onSortChange={this.handleSortChange} />
           </div>
           <div className="col-md-4" style={scopeStyle.pd20}>
             <Metadata title="Materials" fac="mat" data={MatData} />

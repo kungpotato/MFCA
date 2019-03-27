@@ -14,7 +14,6 @@ class Metadata extends Component {
     this.handleCheckbox = this.handleCheckbox.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
     this.handleSelectAll = this.handleSelectAll.bind(this)
-    this.handleInputChange = this.handleInputChange.bind(this)
     this.handleCheckboxClick = this.handleCheckboxClick.bind(this)
     this.handleSortChange = this.handleSortChange.bind(this)
   }
@@ -23,14 +22,11 @@ class Metadata extends Component {
 
   }
 
-  handleInputChange = () => {
-    // const { target } = e
-    // const { key } = target
-  }
-
   handleSortChange = (e) => {
     const { target } = e
-    console.log(target)
+    const { value, id } = target
+    const { onSortChange } = this.props
+    onSortChange(value, id)
   }
 
   handleSelectAll(e) {
@@ -129,15 +125,23 @@ class Metadata extends Component {
                       handleCheckboxClick={this.handleCheckboxClick}
                     />
                     {val.department}
-                    <input
+                    <select
                       type="number"
                       name="sort"
+                      id={val._id}
                       value={val.sort}
                       onChange={this.handleSortChange}
-                      min="1"
-                      max="3"
-                      style={{ float: 'right' }}
-                    />
+                      style={{ float: 'right', width: '50px' }}
+                    >
+                      {data.map(value => (
+                        <option
+                          key={value._id}
+                          value={value.sort}
+                        >
+                          {value.sort}
+                        </option>
+                      ))}
+                    </select>
                   </li>
                   ))}
                   {!Helper.isNull(data) && data.map(val => !Helper.isNull(val.material) && (

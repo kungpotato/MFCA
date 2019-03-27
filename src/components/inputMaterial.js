@@ -40,12 +40,21 @@ class InputMaterial extends Component {
   }
 
   getData = async (condition) => {
+    const tempDept = []
+
     if (condition === 'department') {
       const resDept = await metaDataService.getDept()
-      if (this._isMounted) {
-        this.setState({
-          deptOptions: resDept
-        })
+      for (let i = 0; i < resDept.length; i += 1) {
+        if (resDept[i].sort === 1) {
+          tempDept.push(resDept[i])
+          if (this._isMounted) {
+            this.setState({
+              deptOptions: resDept,
+              selectDeptArr: tempDept,
+              selectDeptId: resDept[i]._id
+            })
+          }
+        }
       }
     } else if (condition === 'mat') {
       const resMat = await metaDataService.getMat()
@@ -96,13 +105,15 @@ class InputMaterial extends Component {
     const trInput = this.saveTrInput
     const trOutput = this.saveTrOutput
     // console.log(tr)
+
     const item = {
       method: 'save',
       data: {
         periodCode: running.innerHTML,
         department: selectDeptId,
-        dataTable: trInput,
-        dataOutput: trOutput
+        dataInput: trInput,
+        dataOutput: trOutput,
+        process: 2
       }
     }
 
@@ -110,6 +121,8 @@ class InputMaterial extends Component {
     reponse.then((res) => {
       this.setState((state, props) => {
         !Helper.isNull(res) && props.history.push('/input-history')
+      }, () => {
+        window.location.reload()
       })
     })
   }
